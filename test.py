@@ -1,6 +1,7 @@
 import pandas as pd
 from datetime import date
 from matplotlib import pyplot as plt
+
 ether_data = pd.read_csv("Datasets/ETHUSD_Bitfinex_D_historical.csv")
 ether_data.drop(labels=["Pair", "Volume_USD"], axis=1, inplace=True)
 ether_data["Date"] = ether_data["TimeStamp"].apply(lambda timestamp: date.fromtimestamp(timestamp)).astype("datetime64")
@@ -9,7 +10,8 @@ column_sequence = ["Date", "Open", "High", "Low", "Close", "Volume_CCY"]
 ether_data = ether_data.reindex(columns=column_sequence)
 ether_data = ether_data.set_index("Date")
 print(ether_data)
-plt.figure(figsize=(19.20,10.80), dpi = 200)
+print(ether_data.dtypes)
+plt.figure(figsize=(19.20, 10.80), dpi=200)
 plt.plot(ether_data["Open"], color="red", label="Open")
 plt.plot(ether_data["Close"], color="blue", label="Close")
 plt.plot(ether_data["High"], color="green", label="High")
@@ -18,11 +20,11 @@ plt.legend()
 plt.xlabel("Date")
 plt.ylabel("Price (USD)")
 plt.title("Daily Ether Prices (2016-2021)")
-plt.show()
-plt.figure(figsize=(19.20,10.80), dpi = 200)
+# plt.show()
+plt.figure(figsize=(19.20, 10.80), dpi=200)
 plt.plot(ether_data["Volume_CCY"], color="red", label="Volume")
 plt.legend()
 plt.xlabel("Date")
 plt.ylabel("Transaction Volume (ETH)")
 plt.title("Daily Ether Transactions (2016-2021)")
-plt.show()
+# plt.show()
